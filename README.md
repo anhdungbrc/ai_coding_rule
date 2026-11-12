@@ -78,8 +78,8 @@ Luật 1.3 yêu cầu agent lấy lệnh build, test, lint từ file cấu hình
 
 ### 4. Làm việc với agent
 
-- Giao việc như bình thường. Agent sẽ nêu giả định, hỏi điểm chưa rõ, đề xuất hướng (nếu có nhiều hướng) rồi mới code.
-- Muốn bỏ qua một bước, nói rõ bằng lời. Ví dụ: "bỏ qua test-first" hoặc "cứ làm đi".
+- Giao việc như bình thường. Agent sẽ luôn bắt đầu ở Plan mode (nêu giả định, hỏi điểm chưa rõ, xuất plan có phân rã task chuẩn rule, kết luận điều kiện thực thi kèm checklist hậu kiểm và chờ bạn duyệt) rồi mới sửa code.
+- Muốn bỏ qua một bước, nói rõ bằng lời. Ví dụ: "bỏ qua plan mode", "bỏ qua test-first" hoặc "cứ làm đi".
 - Khi luật xung đột với chỉ dẫn của bạn, agent làm theo bạn và nêu xung đột trong một câu.
 
 ## Tóm tắt các luật
@@ -87,14 +87,14 @@ Luật 1.3 yêu cầu agent lấy lệnh build, test, lint từ file cấu hình
 | # | Luật | Ý chính |
 |---|---|---|
 | 1 | Nạp ngữ cảnh | Đọc tài liệu và code trước, nêu giả định, hỏi khi chưa rõ |
-| 2 | Thiết kế trước | Đưa 2 đến 3 hướng, chờ user duyệt khi có nhiều hướng hợp lý |
+| 2 | Plan mode & thiết kế | Luôn vào Plan mode lập plan (gọn hoặc đầy đủ) có phân rã task chuẩn rule, kết luận điều kiện thực thi và checklist hậu kiểm, chờ user duyệt |
 | 3 | Đơn giản trước | Code tối thiểu, không thêm thứ chưa ai yêu cầu |
 | 4 | Sửa phẫu thuật | Chỉ đổi thứ cần đổi, việc không liên quan thì báo cáo |
 | 5 | Test trước | Red rồi green, làm theo từng vertical slice |
 | 6 | Bằng chứng | Chạy lệnh và dẫn output trước khi nói "xong" |
 | 7 | Debug gốc rễ | Tìm root cause, sau 3 lần sửa thất bại thì dừng và hỏi |
 | 8 | Review | Tự review hai trục: Spec và Standards |
-| 9 | Đặt tên, comment | Tên tường minh, comment giải thích "tại sao" |
+| 9 | Đặt tên, comment | Tên tường minh; mọi hàm (code & test) có doc comment tiếng Anh đầu hàm, inline giải thích "tại sao" |
 | 10 | Giao tiếp | Kết quả đúng sự thật, ngắn gọn, dẫn đầu bằng điều quan trọng |
 
 ## Thứ tự ưu tiên
@@ -103,15 +103,17 @@ Chỉ dẫn trực tiếp của user > `CODING_RULES.md` > tài liệu dự án 
 
 ## Phạm vi áp dụng
 
-- Mọi tác vụ code đều áp dụng.
-- Tác vụ tầm thường (sửa chính tả, đổi tên một dòng) được bỏ qua Luật 2 và Luật 5.
+- Mọi tác vụ viết, sửa hoặc debug code đều phải bắt đầu ở Plan mode (chỉ câu hỏi không chạm code được miễn).
+- Tác vụ tầm thường (sửa chính tả, đổi tên một dòng) hoặc 1 hướng rõ dùng **Plan gọn**; tác vụ tầm thường vẫn được bỏ qua Luật 5 nếu không chạm logic.
 - Luật 4, 6, 10 áp dụng cho mọi tác vụ.
-- Chỉ user mới miễn được test-first (Luật 5) và việc chạy kiểm tra (Luật 6). Agent vẫn phải nói rõ phần nào chưa xác minh.
+- Chỉ user mới miễn được duyệt plan (Luật 2), test-first (Luật 5) và việc chạy kiểm tra (Luật 6). Agent vẫn phải nói rõ phần nào chưa xác minh.
 
 ## Kiểm tra agent có tuân thủ không
 
-Dùng danh sách "Tự kiểm tra trước mỗi phản hồi có code" ở cuối [CODING_RULES.md](CODING_RULES.md) khi review kết quả của agent. Các dấu hiệu vi phạm thường gặp:
+Dùng **Checklist hậu kiểm** ngay trong bản plan của agent và danh sách "Tự kiểm tra trước mỗi phản hồi có code" ở cuối [CODING_RULES.md](CODING_RULES.md) khi review kết quả. Các dấu hiệu vi phạm thường gặp:
 
+- Agent tự ý sửa file trước khi xuất plan và được duyệt.
+- Agent phân rã task sai rule (tách ngang thiếu test hoặc gom code trước test sau) hoặc tự thực thi khi plan chưa kết luận đủ điều kiện.
 - Agent nói "xong" nhưng không có output lệnh test.
 - Diff có thay đổi không liên quan đến yêu cầu.
 - Agent code ngay khi yêu cầu còn nhiều cách hiểu.
