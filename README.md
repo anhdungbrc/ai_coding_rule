@@ -31,14 +31,16 @@ Agent không tự đọc file này. Hãy trỏ tới nó trong file chỉ dẫn 
 Nội dung mẫu để thêm vào:
 
 ```markdown
-Trước khi phân tích, thiết kế hoặc viết code, đọc và tuân thủ `CODING_RULES.md`.
+BẮT BUỘC: trước khi phân tích, thiết kế hoặc viết bất kỳ code nào, đọc toàn bộ `CODING_RULES.md` ở thư mục gốc. Không bắt đầu công việc khi chưa đọc.
 ```
+
+Viết theo kiểu mệnh lệnh như trên, không viết kiểu gợi ý, để agent ít bỏ qua hơn. Dự án này có sẵn [AGENTS.md](AGENTS.md) với nội dung đó.
 
 Với Claude Code có thể dùng import: `@CODING_RULES.md`.
 
 #### Google Antigravity
 
-Antigravity nạp luật từ các vị trí sau (theo [tài liệu chính thức](https://antigravity.google/docs/rules)):
+Antigravity nạp luật từ các vị trí sau (tổng hợp từ [tài liệu của Antigravity](https://antigravity.google/docs/rules) và các blog bên thứ ba, chưa kiểm chứng trực tiếp):
 
 | Phạm vi | Vị trí |
 |---|---|
@@ -49,12 +51,12 @@ Antigravity nạp luật từ các vị trí sau (theo [tài liệu chính thứ
 Cách làm đơn giản nhất:
 
 1. Copy `CODING_RULES.md` vào thư mục gốc dự án.
-2. Tạo `AGENTS.md` ở thư mục gốc với dòng: "Trước khi phân tích, thiết kế hoặc viết code, đọc và tuân thủ `CODING_RULES.md`."
-3. Mở một phiên mới trong Antigravity rồi hỏi agent: "Bạn đang áp dụng những luật nào?" để xác nhận nó đã nạp luật.
+2. Tạo `AGENTS.md` ở thư mục gốc với câu lệnh mẫu ở trên.
+3. Mở một phiên mới trong Antigravity rồi hỏi agent: "Liệt kê 10 luật bạn đang áp dụng" để xác nhận nó đã nạp luật.
 
 Lưu ý:
 
-- Muốn luật luôn nằm trong ngữ cảnh, có thể đặt nội dung `CODING_RULES.md` trực tiếp vào `.agents/rules/coding-rules.md` thay vì chỉ trỏ tới.
+- `AGENTS.md` chỉ trỏ tới `CODING_RULES.md` nên agent vẫn phải tự mở file đó, không đảm bảo luôn đọc. Nếu bước 3 cho thấy agent không biết luật, dùng phương án dự phòng: tách `CODING_RULES.md` thành vài file nhỏ trong `.agents/rules/` và đặt chế độ kích hoạt "Always On". Một số blog nói mỗi file luật có giới hạn 12.000 ký tự (chưa xác nhận từ nguồn chính thức), trong khi `CODING_RULES.md` dài khoảng 13.500 ký tự, nên không nhét nguyên file vào một rule được.
 - Đường dẫn cũ `.agent/rules/` (số ít) vẫn được hỗ trợ nhưng là dạng legacy, nên dùng `.agents/rules/`.
 - Antigravity và Gemini CLI dùng chung `~/.gemini/GEMINI.md`, nên luật toàn cục đặt ở đó sẽ ảnh hưởng cả hai công cụ.
 - Thứ tự ưu tiên giữa `AGENTS.md` và `GEMINI.md` khi cùng tồn tại ở một cấp chưa được xác nhận trong tài liệu. Chỉ dùng một trong hai để tránh mâu thuẫn.

@@ -92,14 +92,14 @@ Mục 4 và 5 áp dụng cho mọi thay đổi chạm logic nghiệp vụ hoặc
    5. Rồi mới tuyên bố, kèm bằng chứng. Output không xác nhận thì báo trạng thái thật.
 2. Bảng yêu cầu bằng chứng:
 
-   | Tuyên bố | Cần có | Không đủ |
-   |---|---|---|
-   | Test pass | Output test: 0 fail | Lần chạy trước, "chắc pass" |
-   | Lint sạch | Output linter: 0 lỗi | Chạy một phần |
-   | Build thành công | Lệnh build: exit 0 | Lint pass |
-   | Bug đã sửa | Chạy lại triệu chứng gốc: pass | Đã đổi code |
-   | Yêu cầu đã đủ | Checklist từng dòng của spec | Test pass |
-   | Không hồi quy | Toàn bộ test hiện có pass; dự án có lệnh đo coverage thì chạy và so với trước thay đổi | Chỉ chạy test mới |
+   | Tuyên bố         | Cần có                                                                                 | Không đủ                    |
+   | ---------------- | -------------------------------------------------------------------------------------- | --------------------------- |
+   | Test pass        | Output test: 0 fail                                                                    | Lần chạy trước, "chắc pass" |
+   | Lint sạch        | Output linter: 0 lỗi                                                                   | Chạy một phần               |
+   | Build thành công | Lệnh build: exit 0                                                                     | Lint pass                   |
+   | Bug đã sửa       | Chạy lại triệu chứng gốc: pass                                                         | Đã đổi code                 |
+   | Yêu cầu đã đủ    | Checklist từng dòng của spec                                                           | Test pass                   |
+   | Không hồi quy    | Toàn bộ test hiện có pass; dự án có lệnh đo coverage thì chạy và so với trước thay đổi | Chỉ chạy test mới           |
 
 3. Dùng câu khẳng định có số liệu ("34/34 test pass"). Các từ "should", "probably", "có vẻ", "chắc là" nghĩa là chưa kiểm chứng.
 4. Không chạy kiểm tra (user miễn, không có test, môi trường không cho chạy) thì nêu rõ bước nào, vì sao, phần nào chưa xác minh. Dùng "đã sửa, chưa kiểm chứng" thay cho "xong" hay "đúng".
@@ -139,7 +139,7 @@ Mục 4 và 5 áp dụng cho mọi thay đổi chạm logic nghiệp vụ hoặc
 1. Đặt tên hàm khớp đúng phạm vi logic thật (hàm trả cả cây quan hệ thì không đặt `checkItemStatus`).
 2. Dùng tiền tố có nghĩa cố định: `find` trả entity hoặc null, `get` chắc chắn có hoặc throw, `validate` thẩm định, `is`/`has`/`can` trả boolean; tách hàm validate khỏi hàm query. Đây là mặc định khi dự án chưa có quy ước.
 3. Đặt tên biến tường minh (`userId`, `targetCardId`, `membership`). Viết boolean dạng khẳng định (`isLinked`, `hasAccount`). Bỏ ngữ cảnh thừa mà module đã mang (`userService.getById`).
-4. Viết comment bằng ngôn ngữ theo quy ước dự án, giải thích "tại sao" (nguyên nhân nghiệp vụ, quyết định kiến trúc, trường hợp biên); để code tự nói phần "cái gì".
+4. Viết comment bằng ngôn ngữ tiếng Anh, giải thích "tại sao" (nguyên nhân nghiệp vụ, quyết định kiến trúc, trường hợp biên); để code tự nói phần "cái gì".
 5. Giữ code tự khép kín: ghi ràng buộc nghiệp vụ trực tiếp trong 1 đến 2 câu hoặc thể hiện qua type, enum. Tài liệu ngoài và số ticket sẽ mục rỗng, nên để chúng ngoài code.
 
 ## Luật 10. Giao tiếp trung thực, ngắn gọn
@@ -158,17 +158,17 @@ Mục 4 và 5 áp dụng cho mọi thay đổi chạm logic nghiệp vụ hoặc
 
 Nếu bạn bắt gặp mình nghĩ một trong những câu sau, bạn đang tự biện minh cho một vi phạm.
 
-| Suy nghĩ | Sự thật |
-|---|---|
-| "Việc này quá đơn giản, khỏi test hay plan." | Việc đơn giản cũng gây lỗi. Luật 5 và 6 vẫn áp dụng. |
-| "Tiện tay dọn luôn chỗ này." | Luật 4. Báo cáo, để nguyên. |
-| "Chắc user muốn nói X." | Luật 1. Hỏi hoặc liệt kê các cách hiểu. |
-| "Thêm tùy chọn này phòng khi cần." | Luật 3. Giải quyết vấn đề hôm nay. |
-| "Viết code trước, thêm test sau." | Luật 5. Test viết sau pass ngay và không chứng minh được gì. |
-| "Thử thêm một cách sửa nhanh nữa." | Luật 7. Tìm root cause. |
-| "Test sai rồi, chỉnh test cho pass." | Luật 5.7. Kiểm tra code trước. |
-| "Bạn nói đúng quá, để mình sửa ngay!" | Luật 8. Kiểm chứng trước, phản hồi bằng nội dung kỹ thuật. |
-| "Lần này là ngoại lệ." | Chỉ user mới miễn được Luật 5 và việc chạy kiểm tra. Không ai miễn được việc nói rõ phần chưa xác minh (Luật 6). |
+| Suy nghĩ                                     | Sự thật                                                                                                          |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| "Việc này quá đơn giản, khỏi test hay plan." | Việc đơn giản cũng gây lỗi. Luật 5 và 6 vẫn áp dụng.                                                             |
+| "Tiện tay dọn luôn chỗ này."                 | Luật 4. Báo cáo, để nguyên.                                                                                      |
+| "Chắc user muốn nói X."                      | Luật 1. Hỏi hoặc liệt kê các cách hiểu.                                                                          |
+| "Thêm tùy chọn này phòng khi cần."           | Luật 3. Giải quyết vấn đề hôm nay.                                                                               |
+| "Viết code trước, thêm test sau."            | Luật 5. Test viết sau pass ngay và không chứng minh được gì.                                                     |
+| "Thử thêm một cách sửa nhanh nữa."           | Luật 7. Tìm root cause.                                                                                          |
+| "Test sai rồi, chỉnh test cho pass."         | Luật 5.7. Kiểm tra code trước.                                                                                   |
+| "Bạn nói đúng quá, để mình sửa ngay!"        | Luật 8. Kiểm chứng trước, phản hồi bằng nội dung kỹ thuật.                                                       |
+| "Lần này là ngoại lệ."                       | Chỉ user mới miễn được Luật 5 và việc chạy kiểm tra. Không ai miễn được việc nói rõ phần chưa xác minh (Luật 6). |
 
 ## Tự kiểm tra trước mỗi phản hồi có code
 
